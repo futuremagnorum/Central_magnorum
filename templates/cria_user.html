@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cria o usuario ou empresa</title>
+    <link rel="stylesheet" href="/static/css/user.css">
+</head>
+<body>
+    <h1>Cria o usuario ou empresa!</h1>
+
+    <button onclick="user()">Criar Usuário</button>
+    <button onclick="empresa()">Criar Empresa</button>
+
+    <div id="empresa" class="empresa">
+        <h1>Crie a empresa</h1>
+
+        <form method="post" action="/criar_empresa">
+            <h2>Nome:</h2>
+            <input type="text" name="nome" required>
+
+            <h2>Email:</h2>
+            <input type="text" name="email" required>
+
+            <h2>Senha:</h2>
+            <input type="text" name="senha" required>
+
+            <h2>Dominio:</h2>
+            <input type="text" name="dominio" required>
+
+            <h2>Senha dominio:</h2>
+            <input type="text" name="senha_dominio" required>
+
+            <button type="submit">Criar</button>
+        </form>
+    </div>
+
+    <div id="user" class="user">
+        <h1>Crie o usuário</h1>
+
+        <form method="post" action="/criar_user" >
+            <h2>Nome:</h2>
+            <input type="text" name="nome" required>
+
+            <h2>Login:</h2>
+            <input type="text" name="login" required>
+
+            <h2>Senha:</h2>
+            <input type="text" name="senha" required>
+
+            <h2>Empresas:</h2>
+            <input type="text" name="empresas" required>
+
+            <h2>Nivel:</h2>
+            <input type="text" name="nivel" required>
+
+            <button type="submit">Criar</button>
+        </form>
+    </div>
+
+    
+    <a href="/administracao">
+        <button>Voltar</button>
+    </a>
+</body>
+<script>
+    function user() {
+        console.log("coco")
+        const user = document.getElementById("user")
+        const empresa = document.getElementById("empresa")
+
+        empresa.style.display = "none"
+        user.style.display = "flex"
+    }
+    
+    function empresa() {
+        const user = document.getElementById("user")
+        const empresa = document.getElementById("empresa")
+
+        user.style.display = "none"
+        empresa.style.display = "flex"
+    }
+
+</script>
+</html>

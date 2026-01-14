@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticação</title>
+    <link rel="stylesheet" href="/static/css/index.css">
+</head>
+<body>
+    <h1>Autenticação</h1>
+    <form method="post" action="/auth">
+        <input name="login" type="text" id="login" required>
+        <input name="senha" type="password" id="senha" required>
+        <button type="submit">Entrar</button>
+    </form>
+
+    <pre id="saida">nada</pre>
+</body>
+<script>
+    const params = new URLSearchParams(window.location.search)
+    const pre = document.getElementById("saida")
+
+    if (params.get("erro")) {
+        pre.style.color = "red"
+        pre.innerText = "Login ou senha incorretos"
+    }
+    else{
+        pre.innerText = ""
+    }
+</script>
+</html>

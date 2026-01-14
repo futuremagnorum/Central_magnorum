@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/adm.css">
+</head>
+<body>
+    <title>Bem vindo adm!</title>
+
+    <h1>Empresas cadastradas:</h1>
+
+    {% for empresa in empresas %}
+    <details>
+
+    
+
+    <summary>
+        <span>{{ empresa.nome_da_empresa }}</span>
+    </summary>
+    
+    <div class="empresas">
+
+        <div>
+            <h2>Id da empresa: {{ empresa.id_da_empresa }}</h2>
+        </div>
+
+        <div>
+            <h2>Nome da empresa: </h2>
+            <h3 data-id="{{ empresa.id_da_empresa }}">{{ empresa.nome_da_empresa }}</h3>
+        </div>
+    
+        <div>
+            <h2>Email da empresa: </h2>
+            <h3>{{ empresa.email_da_empresa }}</h3>
+        </div>
+
+        <div>
+            <h2>Senha da empresa: </h2>
+            <h3>{{ empresa.senha_da_empresa }}</h3>
+        </div>
+
+        <div>
+            <h2>Dominio da empresa: </h2>
+            <h3>{{ empresa.dominio_da_empresa }}</h3>
+        </div>
+
+        <div>
+            <h2>Senha do dominio da empresa: </h2>
+            <h3>{{ empresa.senha_do_dominio_da_empresa }}</h3>
+        </div>
+
+        <button id="salvar" onclick="editar_linha_empresa(this)">Editar</button>
+
+    </details>
+
+    </div>
+
+    {% endfor %}
+
+
+
+
+
+    <h1>Usuários cadastrados:</h1>
+
+    {% for user in users %}
+    <details>
+
+    
+
+    <summary>
+        <span>{{ user.nome_do_user }}</span>
+    </summary>
+    
+    <div class="empresas">
+
+        <div>
+            <h2>Id do usuário: {{ user.id_do_user }}</h2>
+        </div>
+
+        <div>
+            <h2>Nome do usuário: </h2>
+            <h3 data-id="{{ user.id_do_user }}">{{ user.nome_do_user }}</h3>
+        </div>
+    
+        <div>
+            <h2>Login do usuário: </h2>
+            <h3>{{ user.login_do_user }}</h3>
+        </div>
+
+        <div>
+            <h2>Senha do usuário: </h2>
+            <h3 data-id="{{ user.hash_do_user }}">{{ user.senha_do_user }}</h3>
+        </div>
+
+        <div>
+            <h2>Empresas Cadastradas: </h2>
+            <h3>{{ user.empresas_do_user }}</h3>
+        </div>
+
+        <div>
+            <h2>Nível do usuário: </h2>
+            <h3>{{ user.nivel_do_user }}</h3>
+        </div>
+
+        <button id="salvar" onclick="editar_linha_user(this)">Editar</button>
+
+    </details>
+
+    </div>
+
+    {% endfor %}
+
+    <a href="/cria_usuario">
+        <button>Criar Usuário</button>
+    </a>
+
+    <a href="/dashboard">
+        <button>Ir pra dashboard</button>
+    </a>
+
+    <a href="/logout">
+        <button>Sair</button>
+    </a>
+
+</body>
+<script>
+
+    function editar_linha_empresa(botao) {
+        const container = botao.closest('div')
+
+        if (botao.innerText === "Editar") {
+            const lista_h3 = container.querySelectorAll("h3")
+
+            lista_h3.forEach (h3 => {
+                const input = document.createElement('input')
+                input.value = h3.innerText;
+                input.type = "text"
+                input.dataset.id = h3.dataset.id
+                input.style.display = "block"
+                input.className = "edit_input"
+                input.style.marginBottom = "5px"
+
+                h3.replaceWith(input);
+            })
+
+            botao.innerText = "Salvar"
+        }
+        else{
+            const inputs = container.querySelectorAll(".edit_input")
+            let values = []
+
+            inputs.forEach(input => {
+                values.push(input.value)
+
+                const h3 = document.createElement("h3")
+                h3.innerText = input.value
+                h3.dataset.id = input.dataset.id
+                input.replaceWith(h3)
+            })
+
+            botao.innerText = "Editar"
+
+            const id_da_empresa = inputs[0].dataset.id
+
+            salvar(id_da_empresa, values, "empresa")
+        }
+    }
+
+    function editar_linha_user(botao) {
+        const container = botao.closest('div')
+
+        if (botao.innerText === "Editar") {
+            const lista_h3 = container.querySelectorAll("h3")
+
+            lista_h3.forEach (h3 => {
+                const input = document.createElement('input')
+                if (h3.innerText === "Precione 'Editar' para mudar") {
+                    input.value = ""
+                    input.placeholder = "Digite uma nova senha"
+                }
+                else {
+                    input.value = h3.innerText;
+                }
+
+                input.type = "text"
+                input.dataset.id = h3.dataset.id
+                input.style.display = "block"
+                input.className = "edit_input"
+                input.style.marginBottom = "5px"
+
+                h3.replaceWith(input);
+            })
+
+            botao.innerText = "Salvar"
+        }
+        else{
+            const inputs = container.querySelectorAll(".edit_input")
+            let senha_modificada = true
+            let values = []
+
+            inputs.forEach(input => {
+                const h3 = document.createElement("h3")
+
+                if (!input.value) {
+                    values.push(input.dataset.id)
+                    senha_modificada = false
+                    input.value = "Precione 'Editar' para mudar"
+                }
+                else{
+                    values.push(input.value)
+                }
+                h3.innerText = input.value
+                h3.dataset.id = input.dataset.id
+                input.replaceWith(h3)
+            })
+
+            botao.innerText = "Editar"
+
+            const id_da_empresa = inputs[0].dataset.id
+
+            salvar(id_da_empresa, values, "user", senha_modificada)
+        }
+    }
+
+    async function salvar(id, values, tipo, senha_modificada) {
+        const res = await fetch("/salvar", {
+                method: "POST",
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify({
+                    id: id,
+                    lista: values,
+                    tipo: tipo,
+                    senha_modificada: senha_modificada
+                })
+            })
+    }
+
+</script>
+</html>

@@ -1,0 +1,195 @@
+/* Professional dashboard with improved organization */
+@import url("./base.css");
+
+body {
+  background: var(--neutral-100);
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-2xl);
+  padding-bottom: 120px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: var(--neutral-900);
+  font-size: 2.25rem;
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Improved details/accordion styling with better visual hierarchy */
+details {
+  background: white;
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-base);
+  overflow: hidden;
+  border: 1px solid var(--neutral-200);
+}
+
+details:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: var(--neutral-300);
+}
+
+details[open] {
+  box-shadow: var(--shadow-xl);
+  border-color: var(--primary-600);
+}
+
+/* Enhanced summary with icon and better interactions */
+summary {
+  font-size: 1.375rem;
+  font-weight: 600;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  cursor: pointer;
+  color: var(--neutral-900);
+  background: white;
+  transition: all var(--transition-base);
+  list-style: none;
+  user-select: none;
+  display: flex;
+  align-items: center;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::before {
+  content: "▶";
+  display: inline-block;
+  margin-right: var(--spacing-md);
+  transition: transform var(--transition-base);
+  color: var(--primary-600);
+  font-size: 1rem;
+}
+
+details[open] summary {
+  background: var(--neutral-50);
+  border-bottom: 1px solid var(--neutral-200);
+}
+
+details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+summary:hover {
+  background: var(--neutral-50);
+}
+
+/* Cleaner company info section with card-based layout */
+.empresas {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-xl);
+  gap: var(--spacing-md);
+  background: var(--neutral-50);
+  animation: slideIn 0.4s ease-out;
+}
+
+.empresas > div {
+  background: white;
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--primary-600);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+.empresas > div:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateX(4px);
+}
+
+h2 {
+  color: var(--neutral-600);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--spacing-xs);
+}
+
+h3 {
+  color: var(--neutral-900);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+/* Fixed positioned logout button with better styling */
+a {
+  position: fixed;
+  bottom: var(--spacing-xl);
+  left: 50%;
+  transform: translateX(-50%);
+  text-decoration: none;
+  z-index: 100;
+}
+
+button {
+  min-width: 200px;
+  padding: 1rem 2rem;
+  background: var(--primary-600);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-lg);
+}
+
+button:hover {
+  background: var(--primary-700);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-xl);
+}
+
+button:active {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Improved responsive design for mobile devices */
+@media (max-width: 768px) {
+  body {
+    padding: var(--spacing-lg);
+    padding-bottom: 100px;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  summary {
+    font-size: 1.125rem;
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .empresas {
+    padding: var(--spacing-lg);
+    gap: var(--spacing-md);
+  }
+
+  .empresas > div {
+    padding: var(--spacing-md);
+  }
+
+  button {
+    min-width: 160px;
+    padding: 0.875rem 1.5rem;
+  }
+}
+
+
+

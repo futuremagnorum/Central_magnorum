@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+</head>
+<body>
+    <h1>Olá {{ nome }}, Seja bem vindo a sua Dashboard!</h1>
+
+    {% for empresa in empresas %}
+    <details>
+
+    
+
+    <summary>
+        <span>{{ empresa.nome_da_empresa }}</span>
+    </summary>
+    
+    <div class="empresas">
+    
+
+        <div>
+            <h2>Email da empresa: </h2>
+            <h3>{{ empresa.email_da_empresa }}</h3>
+        </div>
+
+        <div>
+            <h2>Senha da empresa: </h2>
+            <h3>{{ empresa.senha_da_empresa }}</h3>
+        </div>
+
+        <div>
+            <h2>Dominio da empresa: </h2>
+            <h3>{{ empresa.dominio_da_empresa }}</h3>
+        </div>
+
+        <div>
+            <h2>Senha do dominio da empresa: </h2>
+            <h3>{{ empresa.senha_do_dominio_da_empresa }}</h3>
+        </div>
+
+    </details>
+
+    </div>
+
+    {% endfor %}
+
+    <a href="/logout">
+        <button>Sair</button>
+    </a>
+
+</body>
+<script>
+
+</script>
+</html>

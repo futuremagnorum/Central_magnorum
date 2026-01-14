@@ -1,0 +1,255 @@
+/* Professional admin panel with enhanced organization and visual hierarchy */
+@import url("./base.css");
+
+body {
+  background: var(--neutral-100);
+  padding: var(--spacing-2xl);
+  padding-bottom: 200px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Section headers with visual separation */
+h1 {
+  color: var(--neutral-900);
+  font-size: 2rem;
+  margin-top: var(--spacing-2xl);
+  margin-bottom: var(--spacing-xl);
+  font-weight: 700;
+  border-bottom: 3px solid var(--primary-600);
+  padding-bottom: var(--spacing-md);
+  letter-spacing: -0.02em;
+  animation: fadeIn 0.6s ease-out;
+}
+
+h1:first-of-type {
+  margin-top: 0;
+}
+
+/* Consistent details styling with admin page */
+details {
+  background: white;
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-base);
+  overflow: hidden;
+  border: 1px solid var(--neutral-200);
+}
+
+details:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: var(--neutral-300);
+}
+
+details[open] {
+  box-shadow: var(--shadow-xl);
+  border-color: var(--primary-600);
+}
+
+summary {
+  font-size: 1.375rem;
+  font-weight: 600;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  cursor: pointer;
+  color: var(--neutral-900);
+  background: white;
+  transition: all var(--transition-base);
+  list-style: none;
+  user-select: none;
+  display: flex;
+  align-items: center;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::before {
+  content: "▶";
+  display: inline-block;
+  margin-right: var(--spacing-md);
+  transition: transform var(--transition-base);
+  color: var(--primary-600);
+  font-size: 1rem;
+}
+
+details[open] summary {
+  background: var(--neutral-50);
+  border-bottom: 1px solid var(--neutral-200);
+}
+
+details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+summary:hover {
+  background: var(--neutral-50);
+}
+
+/* Content area with better spacing */
+.empresas {
+  padding: var(--spacing-xl);
+  gap: var(--spacing-md);
+  background: var(--neutral-50);
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.4s ease-out;
+}
+
+/* Info cards with hover effects */
+.empresas > div:not(:last-child) {
+  background: white;
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--primary-600);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+.empresas > div:not(:last-child):hover {
+  box-shadow: var(--shadow-md);
+  transform: translateX(4px);
+}
+
+h2 {
+  color: var(--neutral-600);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--spacing-xs);
+}
+
+h3 {
+  color: var(--neutral-900);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  margin-bottom: 0;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+/* Edit/Save button with distinct styling */
+#salvar {
+  background: var(--primary-600);
+  color: white;
+  padding: 0.875rem 2rem;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  margin-top: var(--spacing-lg);
+  box-shadow: var(--shadow-md);
+  min-width: 140px;
+}
+
+#salvar:hover {
+  background: var(--primary-700);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+#salvar:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-md);
+}
+
+/* Navigation buttons container */
+body > a {
+  display: inline-block;
+  text-decoration: none;
+  margin-right: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+body > a button {
+  min-width: 180px;
+  padding: 1rem 1.5rem;
+  background: var(--primary-600);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-md);
+}
+
+body > a button:hover {
+  background: var(--primary-700);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+body > a button:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-md);
+}
+
+/* Enhanced edit input fields with better visual feedback */
+.edit_input {
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--primary-600);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  outline: none;
+  transition: all var(--transition-base);
+  width: 100%;
+  margin-bottom: var(--spacing-sm);
+  background-color: white;
+  font-family: inherit;
+}
+
+.edit_input:focus {
+  box-shadow: 0 0 0 4px rgba(91, 71, 219, 0.15);
+  border-color: var(--primary-700);
+}
+
+.edit_input:hover {
+  border-color: var(--primary-700);
+}
+
+/* Responsive design for tablets and mobile */
+@media (max-width: 768px) {
+  body {
+    padding: var(--spacing-lg);
+    padding-bottom: 250px;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  summary {
+    font-size: 1.125rem;
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
+  .empresas {
+    padding: var(--spacing-lg);
+  }
+
+  .empresas > div:not(:last-child) {
+    padding: var(--spacing-md);
+  }
+
+  body > a {
+    display: block;
+    margin-right: 0;
+    margin-bottom: var(--spacing-md);
+  }
+
+  body > a button {
+    width: 100%;
+  }
+
+  #salvar {
+    width: 100%;
+  }
+}
