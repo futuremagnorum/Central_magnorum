@@ -52,6 +52,13 @@ def connectar_ao_banco():
         port=39556
     )
 
+    # connector = pymysql.connect(
+    #     host="localhost",
+    #     user="root",
+    #     password="",
+    #     database="future_magnorum_empresas"
+    # )
+
     return connector
 
 def criptografar(senha):
@@ -249,10 +256,10 @@ async def salvar(request: Request, dados: Dados):
     
     connector = connectar_ao_banco()
 
-    if tipo == "empresa":    
+    if tipo == "empresa":   
         with connector.cursor() as cursor:
             sql = "UPDATE empresas SET nome = %s, email = %s, senha = %s, dominio = %s, senha_dominio = %s WHERE id = %s"
-            cursor.execute(sql, (lista[0], lista[1], lista[2], lista[3], lista[4], id))
+            cursor.execute(sql, (lista[1], lista[2], lista[3], lista[4], lista[5], id))
     
     if tipo == "user":
         if  senha_modificada:

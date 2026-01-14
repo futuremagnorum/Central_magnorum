@@ -22,7 +22,8 @@
     <div class="empresas">
 
         <div>
-            <h2>Id da empresa: {{ empresa.id_da_empresa }}</h2>
+            <h2>Id da empresa:</h2>
+            <h3> {{ empresa.id_da_empresa }}</h3>
         </div>
 
         <div>
@@ -162,9 +163,10 @@
 
             botao.innerText = "Editar"
 
-            const id_da_empresa = inputs[0].dataset.id
+            const id_da_empresa = inputs[0].value
+            console.log(inputs[0])
 
-            salvar(id_da_empresa, values, "empresa")
+            salvar(id_da_empresa, values, "empresa", false)
         }
     }
 
