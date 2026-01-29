@@ -45,11 +45,11 @@ app.add_middleware(
 
 def connectar_ao_banco():
     connector = pymysql.connect(
-        host="maglev.proxy.rlwy.net",
+        host="crossover.proxy.rlwy.net",
         user="root",
-        password="SamfLsXJiRyfkGaIdLApmWNUtAirQlNL",
+        password="LPwOrhrSuyQVxVjGIOTUlUloughdfEBB",
         database="railway",
-        port=39556
+        port=40562
     )
 
     # connector = pymysql.connect(
