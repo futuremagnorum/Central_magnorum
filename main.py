@@ -237,8 +237,111 @@ async def administracao(request: Request):
         })
 
     return templates.TemplateResponse(
-        "adm.html", {"request": request, "empresas": empresas, "users": users}
+        "adm.html", 
+        {
+            "request": request, 
+            "empresas": empresas, 
+            "users": users, 
+            "link": "arquivados", 
+            "locate": "Arquivados", 
+            "estado": "Arquivar"
+            }
     )
+
+class Dados(BaseModel):
+    id: str
+    lista: list
+    tipo: str
+    senha_modificada: bool
+
+@app.get("/arquivados")
+
+async def arquivados(request: Request):
+    if not request.session.get("adm"):
+        return RedirectResponse("/", status_code=status.HTTP_303_SEE_OTHER)
+    
+    connector = connectar_ao_banco()
+
+    # Pega todas as empresas cadastradas ao banco
+    with connector.cursor() as cursor:
+        sql = "SELECT * FROM arquivados"
+        cursor.execute(sql)
+        resultado_empresas = cursor.fetchall()
+
+        sql = "SELECT * FROM users"
+        cursor.execute(sql)
+        resultado_users = cursor.fetchall()
+    connector.close()
+
+    empresas = []
+
+    for i in resultado_empresas:
+        empresas.append({
+            "id_da_empresa": i[0],
+            "nome_da_empresa": i[1],
+            "email_da_empresa": i[2],
+            "senha_da_empresa": i[3],
+            "dominio_da_empresa": i[4],
+            "senha_do_dominio_da_empresa": i[5]
+        })
+
+    users = []
+
+    for i in resultado_users:
+        users.append({
+            "id_do_user": i[0],
+            "nome_do_user": i[1],
+            "login_do_user": i[2],
+            "senha_do_user": "Precione 'Editar' para mudar",
+            "hash_do_user": i[3],
+            "empresas_do_user": i[4],
+            "nivel_do_user": i[5]
+        })
+
+    return templates.TemplateResponse(
+        "adm.html", 
+        {
+            "request": request,
+            "empresas": empresas, 
+            "users": users, 
+            "link": "administracao",
+            "locate": "Ativos", 
+            "estado": "Ativar"
+            }
+    )
+
+
+
+
+class Dados(BaseModel):
+    id: str
+    estado: str
+
+@app.post("/arquivar")
+
+async def arquivar(dados: Dados):
+    id = dados.id
+    tabela = dados.estado
+    if tabela == "Arquivar":
+        table_doadora = "empresas"
+        table_receptora = "arquivados"
+    else:
+        table_doadora = "arquivados"
+        table_receptora = "empresas"
+
+    connector = connectar_ao_banco()
+    with connector.cursor() as cursor:
+        sql = f"SELECT * FROM {table_doadora} WHERE id = %s"
+        cursor.execute(sql, id)
+        empresa = cursor.fetchall()[0]
+
+        sql = f"INSERT INTO {table_receptora} (id, nome, email, senha, dominio, senha_dominio) VALUES (%s, %s, %s, %s, %s, %s)"
+        cursor.execute(sql, [empresa[0], empresa[1], empresa[2], empresa[3], empresa[4], empresa[5]])
+        
+        sql = f"DELETE FROM {table_doadora} WHERE id = %s"
+        cursor.execute(sql, id)
+    connector.close()
+
 
 class Dados(BaseModel):
     id: str
@@ -253,7 +356,7 @@ async def salvar(request: Request, dados: Dados):
     id = dados.id
     tipo = dados.tipo
     senha_modificada = dados.senha_modificada
-    
+
     connector = connectar_ao_banco()
 
     if tipo == "empresa":   

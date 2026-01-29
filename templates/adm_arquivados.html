@@ -121,8 +121,8 @@
         <button>Ir pra dashboard</button>
     </a>
 
-    <a href="/{{ link }}">
-        <button>Ir pros {{ locate }}</button>
+    <a href="/administracao">
+        <button>Ir pros ativos</button>
     </a>
 
     <a href="/logout">
@@ -151,33 +151,6 @@
             })
 
             botao.innerText = "Salvar"
-
-            // Cria um botão para arquivar a empresa
-
-            const arquivar = document.createElement("button")
-            arquivar.textContent = "{{ estado }}"
-            arquivar.onclick = 
-            async function arquivar_empresa(botao) {
-                const id = container.querySelectorAll("input")[0].value
-
-                //Envia o id da empresa a ser arquivada
-                const arquivando = await fetch("/arquivar", {
-                    method: "POST",
-                    headers: { "Content-type": "application/json" },
-                    body: JSON.stringify({
-                         id: id,
-                         estado: "{{ estado }}"
-                        })
-                })
-
-                window.location.reload();
-            }
-            //Adiciona estilo ao botão
-            
-            arquivar.id = "arquivar"
-            arquivar.style.backgroundColor = "#CD3333"
-            arquivar.style.color = "white"
-            container.appendChild(arquivar)
         }
         else{
             const inputs = container.querySelectorAll(".edit_input")
@@ -193,14 +166,11 @@
             })
 
             botao.innerText = "Editar"
-            document.getElementById("arquivar").remove()
-
 
             const id_da_empresa = inputs[0].value
+            console.log(inputs[0])
 
             salvar(id_da_empresa, values, "empresa", false)
-
-            window.location.reload();
         }
     }
 
@@ -257,8 +227,6 @@
             const id_da_empresa = inputs[0].dataset.id
 
             salvar(id_da_empresa, values, "user", senha_modificada)
-
-            window.location.reload();
         }
     }
 
