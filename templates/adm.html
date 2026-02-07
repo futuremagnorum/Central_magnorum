@@ -131,7 +131,6 @@
 
 </body>
 <script>
-
     function editar_linha_empresa(botao) {
         const container = botao.closest('div')
 
@@ -174,10 +173,16 @@
             }
             //Adiciona estilo ao botão
             
-            arquivar.id = "arquivar"
-            arquivar.style.backgroundColor = "#CD3333"
-            arquivar.style.color = "white"
-            container.appendChild(arquivar)
+            arquivar.id = "arquivar";
+            if ("{{ estado }}"== "Arquivar") {
+                arquivar.style.backgroundColor = "#CD3333";
+            }
+            else {
+                arquivar.style.backgroundColor = "#7CFC00";
+            }
+            
+            arquivar.style.color = "white";
+            container.appendChild(arquivar);
         }
         else{
             const inputs = container.querySelectorAll(".edit_input")
